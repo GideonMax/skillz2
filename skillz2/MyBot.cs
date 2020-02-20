@@ -45,7 +45,7 @@ namespace MyBot
         }
         public static bool CanAttack(this Iceberg a, Iceberg b)
         {
-            return a.PenguinsToSendto(b) < a.PenguinAmount;
+            return (a.PenguinsToSendto(b) < a.PenguinAmount&& ! a.AlreadyActed);
         }
         public static int SumPenguins(this Iceberg[] Bergs)
         {
@@ -81,7 +81,7 @@ namespace MyBot
                         MySecondBest.SendPenguins(EnemyWorst, MySecondBest.PenguinsToSendto(EnemyWorst));
                     }
                 }
-                if (MyBest.CanUpgrade())
+                if (MyBest.CanUpgrade()&& !MyBest.AlreadyActed)
                 {
                     MyBest.Upgrade();
                 }
@@ -94,7 +94,7 @@ namespace MyBot
                     if (NeutralBergs.Length > 0)
                     {
                         Iceberg NeutralWorst = NeutralBergs.Worst();
-                        if (NeutralWorst.PenguinAmount < MyBest.PenguinAmount)
+                        if (NeutralWorst.PenguinAmount < MyBest.PenguinAmount&&!MyBest.AlreadyActed)
                         {
                             MyBest.SendPenguins(NeutralWorst, NeutralWorst.PenguinAmount + 1);
                         }
